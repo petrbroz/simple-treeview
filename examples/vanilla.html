@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../dist/treeview.vanilla.css">
+    <!-- <link rel="stylesheet" href="../dist/treeview.vanilla.css"> -->
+    <link rel="stylesheet" href="https://unpkg.com/simple-treeview/dist/treeview.vanilla.css">
     <title>TreeView: Vanilla</title>
     <style>
         #tree {
@@ -19,7 +20,8 @@
 <body>
     <div id="tree"></div>
     <script type="module">
-        import { VanillaTreeView } from '../dist/treeview.vanilla.js';
+        //import { VanillaTreeView } from '../dist/treeview.vanilla.js';
+        import { VanillaTreeView } from 'https://unpkg.com/simple-treeview/dist/treeview.vanilla.js';
         let tree = new VanillaTreeView(document.getElementById('tree'), {
             provider: {
                 async getChildren(id) {
