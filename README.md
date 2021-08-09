@@ -4,6 +4,8 @@ Awfully basic JavaScript treeview component.
 
 ## Usage
 
+API documentation: https://unpkg.com/simple-treeview/docs/index.html
+
 ### Vanilla Tree View
 
 - Include the tree view CSS:
@@ -33,9 +35,6 @@ Awfully basic JavaScript treeview component.
     });
 </script>
 ```
-
-> If you want to use a specific version of the library, add the version specifier after the library name,
-> for example, https://unpkg.com/simple-treeview@0.0.2/dist/treeview.vanilla.js.
 
 ### Bootstrap Tree View
 
@@ -76,6 +75,3 @@ Awfully basic JavaScript treeview component.
     });
 </script>
 ```
-
-> If you want to use a specific version of the library, add the version specifier after the library name,
-> for example, https://unpkg.com/simple-treeview@0.0.2/dist/treeview.bootstrap.js.
