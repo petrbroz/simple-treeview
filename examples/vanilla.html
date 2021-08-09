@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../dist/treeview.vanilla.css">
+    <title>TreeView: Vanilla</title>
+    <style>
+        #tree {
+            border: 1px solid lightgrey;
+            max-width: 20em;
+            margin: 2em;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="tree"></div>
+    <script type="module">
+        import { VanillaTreeView } from '../dist/treeview.vanilla.js';
+        let tree = new VanillaTreeView(document.getElementById('tree'), {
+            provider: {
+                async getChildren(id) {
+                    if (!id) {
+                        return [
+                            { id: 'p1', label: 'Parent #1', state: 'collapsed' },
+                            { id: 'p2', label: 'Parent #2', state: 'expanded' }
+                        ];
+                    } else {
+                        await new Promise((resolve, reject) => setTimeout(resolve, 1000));
+                        switch (id) {
+                            case 'p1':
+                                return [
+                                    { id: 'c1', label: 'Child #1', state: 'collapsed' },
+                                    { id: 'c2', label: 'Child #2' }
+                                ];
+                            case 'p2':
+                                return [
+                                    { id: 'c3', label: 'Child #3' },
+                                    { id: 'c4', label: 'Child #4' }
+                                ];
+                            case 'c1':
+                                return [
+                                    { id: 'c5', label: 'Child #5' }
+                                ];
+                            default:
+                                return [];
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
