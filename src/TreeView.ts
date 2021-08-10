@@ -1,57 +1,134 @@
+/**
+ * Tree node state.
+ */
 export enum CollapsibleState {
+    /** Node cannot be neither collapsed nor expanded. It is a leaf. */
     None = '',
+    /** Node is collapsed and can be expanded. */
     Collapsed = 'collapsed',
+    /** Node is expanded and can be collapsed. */
     Expanded = 'expanded'
 }
 
+/**
+ * User-defined tree node data.
+ */
 export interface IItem {
+    /** Tree node ID. Must be unique within a single tree view. */
     id: string;
+    /** Optional CSS class to be used as an icon. */
     icon?: string;
+    /** Tree node label. */
     label: string;
+    /** Tree node state. Nodes with state `CollapsibleState.None` or `undefined` are considered to have no children. */
     state?: CollapsibleState;
 }
 
+/**
+ * Data provider for a tree view.
+ */
 export interface IDataProvider {
+    /**
+     * Retrieves data for all children of a specific tree node.
+     * @async
+     * @param [id] Optional tree node ID. If undefined, the method should return all root nodes.
+     * @returns {Promise<IItem[]>}
+     */
     getChildren(id?: string): Promise<IItem[]>;
 }
 
+/**
+ * Tree view options.
+ */
 export interface ITreeViewOptions {
+    /** Data provider. */
     provider: IDataProvider;
 }
 
+/**
+ * Runtime metadata of a tree node.
+ */
 export interface INode extends IItem {
+    /** Tree node state. Nodes with state `CollapsibleState.None` or undefined are considered to be leaves. */
     state: CollapsibleState;
+    /** Depth in the tree hierarchy. */
     level: number;
+    /** Whether the children of this node are currently being loaded. */
     loading: boolean;
 }
 
+/**
+ * Core implementation of tree view component providing the basic functionality.
+ * @abstract
+ */
 export abstract class TreeView {
     protected provider: IDataProvider;
     protected root: HTMLElement;
 
+    /**
+     * Initializes a new tree view.
+     * @param container HTML element that will host the tree view.
+     * @param options Additional options.
+     */
     constructor(protected container: HTMLElement, options: ITreeViewOptions) {
         this.provider = options.provider;
         this.root = document.createElement('div');
-        this.root.classList.add('treeview');
         this._onRootClick = this._onRootClick.bind(this);
         this.attach();
     }
 
+    /**
+     * Attaches the tree view to the DOM.
+     */
     protected attach() {
         this.root.addEventListener('click', this._onRootClick);
         this.container.appendChild(this.root);
         this._render(undefined, 0);
     }
 
+    /**
+     * Detaches the tree view from the DOM.
+     */
     protected detach() {
         this.root.removeEventListener('click', this._onRootClick);
         this.container.removeChild(this.root);
     }
 
+
+    /**
+     * Creates new HTML representation of a tree node.
+     * @abstract
+     * @param node Tree node metadata.
+     * @returns New block-based HTML element.
+     */
     protected abstract renderNode(node: INode): HTMLElement;
+
+    /**
+     * Reacts to the event of a tree node being clicked.
+     * @param node Tree node metadata.
+     * @param el Tree node HTML element.
+     */
     protected abstract onNodeClicked(node: INode, el: HTMLElement): void;
+
+    /**
+     * Reacts to the event of a tree node loading its children.
+     * @param node Tree node metadata.
+     * @param el Tree node HTML element.
+     */
     protected abstract onNodeLoading(node: INode, el: HTMLElement): void;
+
+    /**
+     * Reacts to the event of a tree node being collapsed.
+     * @param node Tree node metadata.
+     * @param el Tree node HTML element.
+     */
     protected abstract onNodeCollapsed(node: INode, el: HTMLElement): void;
+
+    /**
+     * Reacts to the event of a tree node being expanded.
+     * @param node Tree node metadata.
+     * @param el Tree node HTML element.
+     */
     protected abstract onNodeExpanded(node: INode, el: HTMLElement): void;
 
     private _onRootClick(ev: MouseEvent): boolean {

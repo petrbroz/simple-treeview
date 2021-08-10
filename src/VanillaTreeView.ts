@@ -6,6 +6,12 @@ const ExpandedNodeClass = 'treeview-node-expanded';
 const LeafNodeClass = 'treeview-node-leaf';
 const LoadingNodeClass = 'treeview-node-loading';
 
+/**
+ * Tree view component built using vanilla JavaScript and CSS.
+ *
+ * The component makes use of [Font Awesome](https://fontawesome.com) icons, so classes
+ * such as `fa-folder` or `fa-clock` can be used in {@link INode}'s `icon` property.
+ */
 export class VanillaTreeView extends TreeView {
     protected renderNode(node: INode): HTMLElement {
         const el = document.createElement('div');
@@ -33,20 +39,40 @@ export class VanillaTreeView extends TreeView {
         return el;
     }
 
+    /**
+     * Reacts to the event of a tree node being clicked.
+     * @param node Tree node metadata.
+     * @param el Tree node HTML element.
+     */
     protected onNodeClicked(node: INode, el: HTMLElement): void {
         alert(`Clicked on ${node.label} (id: ${node.id})`);
     }
 
+    /**
+     * Reacts to the event of a tree node loading its children.
+     * @param node Tree node metadata.
+     * @param el Tree node HTML element.
+     */
     protected onNodeLoading(node: INode, el: HTMLElement): void {
         el.classList.remove(ExpandedNodeClass, CollapsedNodeClass);
         el.classList.add(LoadingNodeClass);
     }
 
+    /**
+     * Reacts to the event of a tree node being collapsed.
+     * @param node Tree node metadata.
+     * @param el Tree node HTML element.
+     */
     protected onNodeCollapsed(node: INode, el: HTMLElement): void {
         el.classList.remove(ExpandedNodeClass, LoadingNodeClass);
         el.classList.add(CollapsedNodeClass);
     }
 
+    /**
+     * Reacts to the event of a tree node being expanded.
+     * @param node Tree node metadata.
+     * @param el Tree node HTML element.
+     */
     protected onNodeExpanded(node: INode, el: HTMLElement): void {
         el.classList.remove(CollapsedNodeClass, LoadingNodeClass);
         el.classList.add(ExpandedNodeClass);
