@@ -1,3 +1,7 @@
+.treeview-node .far {
+    margin-right: 0.5em;
+}
+
 .treeview-node:nth-child(2n) {
     background: rgba(32, 64, 128, 0.05);
 }

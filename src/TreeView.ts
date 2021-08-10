@@ -1,137 +1,138 @@
-export interface ITreeViewNode {
-    id: string;
-    label: string;
-    state: 'collapsed' | 'expanded' | undefined; // undefined means a leaf node
+export enum CollapsibleState {
+    None = '',
+    Collapsed = 'collapsed',
+    Expanded = 'expanded'
 }
 
-export interface ITreeViewProvider {
-    getChildren(id?: string): Promise<ITreeViewNode[]>;
+export interface IItem {
+    id: string;
+    icon?: string;
+    label: string;
+    state?: CollapsibleState;
+}
+
+export interface IDataProvider {
+    getChildren(id?: string): Promise<IItem[]>;
 }
 
 export interface ITreeViewOptions {
-    provider: ITreeViewProvider;
+    provider: IDataProvider;
 }
 
-export interface IMetadata {
-    id: string;
-    label: string;
+export interface INode extends IItem {
+    state: CollapsibleState;
     level: number;
-    state: 'collapsed' | 'expanded' | 'loading' | undefined; // undefined means a leaf node
+    loading: boolean;
 }
 
 export abstract class TreeView {
-    protected provider: ITreeViewProvider;
-    protected root: HTMLElement | null;
+    protected provider: IDataProvider;
+    protected root: HTMLElement;
 
     constructor(protected container: HTMLElement, options: ITreeViewOptions) {
         this.provider = options.provider;
-        this.root = null;
-        this._handleClick = this._handleClick.bind(this);
+        this.root = document.createElement('div');
+        this.root.classList.add('treeview');
+        this._onRootClick = this._onRootClick.bind(this);
         this.attach();
     }
 
     protected attach() {
-        if (this.root) {
-            return;
-        }
-        this.root = document.createElement('div');
-        this.root.classList.add('treeview');
-        this.root.addEventListener('click', this._handleClick);
+        this.root.addEventListener('click', this._onRootClick);
         this.container.appendChild(this.root);
-        this._render(undefined, null, 0);
+        this._render(undefined, 0);
     }
 
     protected detach() {
-        if (!this.root) {
-            return;
-        }
-        this.root.removeEventListener('click', this._handleClick);
+        this.root.removeEventListener('click', this._onRootClick);
         this.container.removeChild(this.root);
-        this.root = null;
     }
 
-    protected abstract render(id: string, label: string, state: 'collapsed' | 'expanded' | 'loading' | undefined): HTMLElement;
+    protected abstract renderNode(node: INode): HTMLElement;
+    protected abstract onNodeClicked(node: INode, el: HTMLElement): void;
+    protected abstract onNodeLoading(node: INode, el: HTMLElement): void;
+    protected abstract onNodeCollapsed(node: INode, el: HTMLElement): void;
+    protected abstract onNodeExpanded(node: INode, el: HTMLElement): void;
 
-    protected abstract onClick(el: HTMLElement, id: string, label: string, level: number): void;
-
-    private async _render(id: string | undefined, insertAfterEl: HTMLElement | null, level: number): Promise<void> {
-        if (!this.root) {
-            return;
-        }
-        const nodes = await this.provider.getChildren(id);
-        for (const { id, label, state } of nodes) {
-            const el = this.render(id, label, state);
-            el.classList.add('treeview-node');
-            this._setMetadata(el, { id, label, level, state });
-            el.style.paddingLeft = `${level}em`;
-            if (insertAfterEl) {
-                insertAfterEl.insertAdjacentElement('afterend', el);
-            } else {
-                this.root.appendChild(el);
-            }
-            insertAfterEl = el;
-            if (state === 'expanded') {
-                await this._render(id, insertAfterEl, level + 1); // should this perhaps be async?
-            }
-        }
-    }
-
-    private _handleClick(ev: MouseEvent): boolean {
-        if (!this.root) {
-            return false;
-        }
+    private _onRootClick(ev: MouseEvent): boolean {
         let el = ev.target as HTMLElement;
-        while (!el.hasAttribute('data-treeview-id') && el.parentElement) {
+        while (!this._hasMetadata(el) && el.parentElement) {
             el = el.parentElement;
         }
-        console.assert(el.hasAttribute('data-treeview-id'));
-        const { id, label, level, state } = this._getMetadata(el);
-        switch (state) {
-            case 'collapsed':
-                el = this._setState(el, 'loading');
-                this._render(id, el, level + 1)
-                    .then(() => el = this._setState(el, 'expanded'));
+        const metadata = this._getMetadata(el);
+        switch (metadata.state) {
+            case CollapsibleState.Collapsed:
+                this._expandNode(el);
                 break;
-            case 'expanded':
-                while (el.nextSibling && this._getMetadata(el.nextSibling as HTMLElement).level > level) {
-                    this.root.removeChild(el.nextSibling);
-                }
-                el = this._setState(el, 'collapsed');
+            case CollapsibleState.Expanded:
+                this._collapseNode(el);
                 break;
             default:
-                this.onClick(el, id, label, level);
+                this.onNodeClicked(metadata, el);
                 break;
         }
         return false;
     }
 
-    private _setState(el: HTMLElement, state: 'collapsed' | 'expanded' | 'loading'): HTMLElement {
-        const { id, label, level } = this._getMetadata(el);
-        const tmpEl = this.render(id, label, state);
-        tmpEl.classList.add('treeview-node');
-        tmpEl.style.paddingLeft = `${level}em`;
-        this._setMetadata(tmpEl, { id, label, level, state });
-        el.replaceWith(tmpEl);
-        return tmpEl;
-    }
-
-    private _getMetadata(el: HTMLElement): IMetadata {
-        return {
-            id: el.getAttribute('data-treeview-id') as string,
-            label: el.getAttribute('data-treeview-label') as string,
-            level: parseInt(el.getAttribute('data-treeview-level') as string),
-            state: el.getAttribute('data-treeview-state') as ('collapsed' | 'expanded' | 'loading' | undefined)
-        };
-    }
-
-    private _setMetadata(el: HTMLElement, metadata: IMetadata): void {
-        el.setAttribute('data-treeview-id', metadata.id);
-        el.setAttribute('data-treeview-label', metadata.label);
-        el.setAttribute('data-treeview-level', metadata.level.toString());
-        if (metadata.state) {
-            el.setAttribute('data-treeview-state', metadata.state);
-        } else {
-            el.removeAttribute('data-treeview-state');
+    private async _render(id: string | undefined, level: number, insertAfterEl?: HTMLElement): Promise<void> {
+        const root = this.root as HTMLElement;
+        const children = await this.provider.getChildren(id);
+        for (const { id, label, icon, state } of children) {
+            const metadata: INode = { id, label, level, icon, state: state || CollapsibleState.None, loading: false };
+            const el = this.renderNode(metadata);
+            el.style.paddingLeft = `${level}em`;
+            this._setMetadata(el, metadata);
+            if (insertAfterEl) {
+                insertAfterEl.insertAdjacentElement('afterend', el);
+            } else {
+                root.appendChild(el);
+            }
+            insertAfterEl = el;
+            if (metadata.state === CollapsibleState.Expanded) {
+                this._expandNode(el);
+            }
         }
+    }
+
+    private _expandNode(el: HTMLElement) {
+        const metadata = this._getMetadata(el);
+        if (!metadata.loading) {
+            metadata.loading = true;
+            this._setMetadata(el, metadata);
+            this.onNodeLoading(metadata, el);
+            this._render(metadata.id, metadata.level + 1, el)
+                .then(() => {
+                    metadata.loading = false;
+                    metadata.state = CollapsibleState.Expanded;
+                    this._setMetadata(el, metadata);
+                    this.onNodeExpanded(metadata, el);
+                });
+        }
+    }
+
+    private _collapseNode(el: HTMLElement) {
+        const root = this.root as HTMLElement;
+        const metadata = this._getMetadata(el);
+        if (!metadata.loading) {
+            while (el.nextSibling && this._getMetadata(el.nextSibling as HTMLElement).level > metadata.level) {
+                root.removeChild(el.nextSibling);
+            }
+            metadata.state = CollapsibleState.Collapsed;
+            this._setMetadata(el, metadata);
+            this.onNodeCollapsed(metadata, el);
+        }
+    }
+
+    private _getMetadata(el: HTMLElement): INode {
+        console.assert(el.hasAttribute('data-treeview'));
+        return JSON.parse(el.getAttribute('data-treeview') as string) as INode;
+    }
+
+    private _setMetadata(el: HTMLElement, metadata: INode): void {
+        el.setAttribute('data-treeview', JSON.stringify(metadata));
+    }
+
+    private _hasMetadata(el: HTMLElement): boolean {
+        return el.hasAttribute('data-treeview');
     }
 }

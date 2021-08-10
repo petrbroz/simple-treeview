@@ -1,0 +1,184 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>simple-treeview</title>
+	<meta name="description" content="Documentation for simple-treeview">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+	<script async src="assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">simple-treeview</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<h1>simple-treeview</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#simple-treeview" id="simple-treeview" style="color: inherit; text-decoration: none;">
+					<h1>simple-treeview</h1>
+				</a>
+				<p>Awfully basic JavaScript treeview component.</p>
+				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+					<h2>Usage</h2>
+				</a>
+				<p>API documentation: <a href="https://unpkg.com/simple-treeview/docs/index.html">https://unpkg.com/simple-treeview/docs/index.html</a></p>
+				<a href="#vanilla-tree-view" id="vanilla-tree-view" style="color: inherit; text-decoration: none;">
+					<h3>Vanilla Tree View</h3>
+				</a>
+				<ul>
+					<li>Include the tree view CSS:</li>
+				</ul>
+				<pre><code class="language-html"><span style="color: #800000">&lt;link</span><span style="color: #000000"> </span><span style="color: #FF0000">rel</span><span style="color: #000000">=</span><span style="color: #0000FF">&quot;stylesheet&quot;</span><span style="color: #000000"> </span><span style="color: #FF0000">href</span><span style="color: #000000">=</span><span style="color: #0000FF">&quot;https://unpkg.com/simple-treeview/dist/treeview.vanilla.css&quot;</span><span style="color: #800000">&gt;</span>
+</code></pre>
+				<ul>
+					<li>Load the tree view JavaScript (as an ES module), and use the <code>VanillaTreeView</code> class:</li>
+				</ul>
+				<pre><code class="language-html"><span style="color: #800000">&lt;script</span><span style="color: #000000FF"> </span><span style="color: #FF0000">type</span><span style="color: #000000FF">=</span><span style="color: #0000FF">&quot;module&quot;</span><span style="color: #800000">&gt;</span>
+<span style="color: #000000FF">    </span><span style="color: #AF00DB">import</span><span style="color: #000000FF"> { </span><span style="color: #001080">VanillaTreeView</span><span style="color: #000000FF"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000FF"> </span><span style="color: #A31515">&#039;https://unpkg.com/simple-treeview/dist/treeview.vanilla.js&#039;</span><span style="color: #000000FF">;</span>
+<span style="color: #000000FF">    </span><span style="color: #0000FF">let</span><span style="color: #000000FF"> </span><span style="color: #001080">tree</span><span style="color: #000000FF"> </span><span style="color: #000000">=</span><span style="color: #000000FF"> </span><span style="color: #0000FF">new</span><span style="color: #000000FF"> </span><span style="color: #795E26">VanillaTreeView</span><span style="color: #000000FF">(</span><span style="color: #001080">document</span><span style="color: #000000FF">.</span><span style="color: #795E26">getElementById</span><span style="color: #000000FF">(</span><span style="color: #A31515">&#039;tree&#039;</span><span style="color: #000000FF">), {</span>
+<span style="color: #000000FF">        </span><span style="color: #001080">provider:</span><span style="color: #000000FF"> {</span>
+<span style="color: #000000FF">            </span><span style="color: #0000FF">async</span><span style="color: #000000FF"> </span><span style="color: #795E26">getChildren</span><span style="color: #000000FF">(</span><span style="color: #001080">id</span><span style="color: #000000FF">) {</span>
+<span style="color: #000000FF">                </span><span style="color: #AF00DB">if</span><span style="color: #000000FF"> (</span><span style="color: #000000">!</span><span style="color: #001080">id</span><span style="color: #000000FF">) {</span>
+<span style="color: #000000FF">                    </span><span style="color: #AF00DB">return</span><span style="color: #000000FF"> [</span>
+<span style="color: #000000FF">                        { </span><span style="color: #001080">id:</span><span style="color: #000000FF"> </span><span style="color: #A31515">&#039;n1&#039;</span><span style="color: #000000FF">, </span><span style="color: #001080">label:</span><span style="color: #000000FF"> </span><span style="color: #A31515">&#039;Node #1&#039;</span><span style="color: #000000FF"> },</span>
+<span style="color: #000000FF">                        { </span><span style="color: #001080">id:</span><span style="color: #000000FF"> </span><span style="color: #A31515">&#039;n2&#039;</span><span style="color: #000000FF">, </span><span style="color: #001080">label:</span><span style="color: #000000FF"> </span><span style="color: #A31515">&#039;Node #2&#039;</span><span style="color: #000000FF"> }</span>
+<span style="color: #000000FF">                    ];</span>
+<span style="color: #000000FF">                } </span><span style="color: #AF00DB">else</span><span style="color: #000000FF"> {</span>
+<span style="color: #000000FF">                    </span><span style="color: #AF00DB">return</span><span style="color: #000000FF"> [];</span>
+<span style="color: #000000FF">                }</span>
+<span style="color: #000000FF">            }</span>
+<span style="color: #000000FF">        }</span>
+<span style="color: #000000FF">    });</span>
+<span style="color: #800000">&lt;/script&gt;</span>
+</code></pre>
+				<a href="#bootstrap-tree-view" id="bootstrap-tree-view" style="color: inherit; text-decoration: none;">
+					<h3>Bootstrap Tree View</h3>
+				</a>
+				<ul>
+					<li>Make sure you include Bootstrap dependencies, incl. Bootstrap Icons, for example:</li>
+				</ul>
+				<pre><code class="language-html"><span style="color: #008000">&lt;!-- CSS --&gt;</span>
+<span style="color: #800000">&lt;link</span><span style="color: #000000"> </span><span style="color: #FF0000">rel</span><span style="color: #000000">=</span><span style="color: #0000FF">&quot;stylesheet&quot;</span><span style="color: #000000"> </span><span style="color: #FF0000">href</span><span style="color: #000000">=</span><span style="color: #0000FF">&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css&quot;</span><span style="color: #800000">&gt;</span>
+<span style="color: #800000">&lt;link</span><span style="color: #000000"> </span><span style="color: #FF0000">rel</span><span style="color: #000000">=</span><span style="color: #0000FF">&quot;stylesheet&quot;</span><span style="color: #000000"> </span><span style="color: #FF0000">href</span><span style="color: #000000">=</span><span style="color: #0000FF">&quot;https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css&quot;</span><span style="color: #800000">&gt;</span>
+<span style="color: #008000">&lt;!-- JavaScript --&gt;</span>
+<span style="color: #800000">&lt;script</span><span style="color: #000000FF"> </span><span style="color: #FF0000">src</span><span style="color: #000000FF">=</span><span style="color: #0000FF">&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js&quot;</span><span style="color: #800000">&gt;&lt;/script&gt;</span>
+</code></pre>
+				<ul>
+					<li>Include the tree view CSS:</li>
+				</ul>
+				<pre><code class="language-html"><span style="color: #800000">&lt;link</span><span style="color: #000000"> </span><span style="color: #FF0000">rel</span><span style="color: #000000">=</span><span style="color: #0000FF">&quot;stylesheet&quot;</span><span style="color: #000000"> </span><span style="color: #FF0000">href</span><span style="color: #000000">=</span><span style="color: #0000FF">&quot;https://unpkg.com/simple-treeview/dist/treeview.bootstrap.css&quot;</span><span style="color: #800000">&gt;</span>
+</code></pre>
+				<ul>
+					<li>Load the tree view JavaScript (as an ES module), and use the <code>BootstrapTreeView</code> class:</li>
+				</ul>
+				<pre><code class="language-html"><span style="color: #800000">&lt;script</span><span style="color: #000000FF"> </span><span style="color: #FF0000">type</span><span style="color: #000000FF">=</span><span style="color: #0000FF">&quot;module&quot;</span><span style="color: #800000">&gt;</span>
+<span style="color: #000000FF">    </span><span style="color: #AF00DB">import</span><span style="color: #000000FF"> { </span><span style="color: #001080">BootstrapTreeView</span><span style="color: #000000FF"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000FF"> </span><span style="color: #A31515">&#039;https://unpkg.com/simple-treeview/dist/treeview.bootstrap.js&#039;</span><span style="color: #000000FF">;</span>
+<span style="color: #000000FF">    </span><span style="color: #0000FF">let</span><span style="color: #000000FF"> </span><span style="color: #001080">tree</span><span style="color: #000000FF"> </span><span style="color: #000000">=</span><span style="color: #000000FF"> </span><span style="color: #0000FF">new</span><span style="color: #000000FF"> </span><span style="color: #795E26">BootstrapTreeView</span><span style="color: #000000FF">(</span><span style="color: #001080">document</span><span style="color: #000000FF">.</span><span style="color: #795E26">getElementById</span><span style="color: #000000FF">(</span><span style="color: #A31515">&#039;tree&#039;</span><span style="color: #000000FF">), {</span>
+<span style="color: #000000FF">        </span><span style="color: #001080">provider:</span><span style="color: #000000FF"> {</span>
+<span style="color: #000000FF">            </span><span style="color: #0000FF">async</span><span style="color: #000000FF"> </span><span style="color: #795E26">getChildren</span><span style="color: #000000FF">(</span><span style="color: #001080">id</span><span style="color: #000000FF">) {</span>
+<span style="color: #000000FF">                </span><span style="color: #AF00DB">if</span><span style="color: #000000FF"> (</span><span style="color: #000000">!</span><span style="color: #001080">id</span><span style="color: #000000FF">) {</span>
+<span style="color: #000000FF">                    </span><span style="color: #AF00DB">return</span><span style="color: #000000FF"> [</span>
+<span style="color: #000000FF">                        { </span><span style="color: #001080">id:</span><span style="color: #000000FF"> </span><span style="color: #A31515">&#039;n1&#039;</span><span style="color: #000000FF">, </span><span style="color: #001080">label:</span><span style="color: #000000FF"> </span><span style="color: #A31515">&#039;Node #1&#039;</span><span style="color: #000000FF"> },</span>
+<span style="color: #000000FF">                        { </span><span style="color: #001080">id:</span><span style="color: #000000FF"> </span><span style="color: #A31515">&#039;n2&#039;</span><span style="color: #000000FF">, </span><span style="color: #001080">label:</span><span style="color: #000000FF"> </span><span style="color: #A31515">&#039;Node #2&#039;</span><span style="color: #000000FF"> }</span>
+<span style="color: #000000FF">                    ];</span>
+<span style="color: #000000FF">                } </span><span style="color: #AF00DB">else</span><span style="color: #000000FF"> {</span>
+<span style="color: #000000FF">                    </span><span style="color: #AF00DB">return</span><span style="color: #000000FF"> [];</span>
+<span style="color: #000000FF">                }</span>
+<span style="color: #000000FF">            }</span>
+<span style="color: #000000FF">        }</span>
+<span style="color: #000000FF">    });</span>
+<span style="color: #800000">&lt;/script&gt;</span>
+</code></pre>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="modules.html">Modules</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/BootstrapTreeView.html">Bootstrap<wbr>Tree<wbr>View</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/TreeView.html">Tree<wbr>View</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/VanillaTreeView.html">Vanilla<wbr>Tree<wbr>View</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

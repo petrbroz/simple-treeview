@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="../dist/treeview.vanilla.css"> -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <link rel="stylesheet" href="../dist/treeview.vanilla.css">
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/petrbroz/simple-treeview@master/dist/treeview.vanilla.min.css"> -->
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/petrbroz/simple-treeview@master/dist/treeview.vanilla.css"> -->
-    <link rel="stylesheet" href="https://unpkg.com/simple-treeview/dist/treeview.vanilla.css">
+    <!-- <link rel="stylesheet" href="https://unpkg.com/simple-treeview/dist/treeview.vanilla.css"> -->
     <title>TreeView: Vanilla</title>
     <style>
         #tree {
@@ -22,34 +23,34 @@
 <body>
     <div id="tree"></div>
     <script type="module">
-        //import { VanillaTreeView } from '../dist/treeview.vanilla.js';
+        import { VanillaTreeView } from '../dist/treeview.vanilla.js';
         //import { VanillaTreeView } from 'https://cdn.jsdelivr.net/gh/petrbroz/simple-treeview@master/dist/treeview.vanilla.min.js';
         //import { VanillaTreeView } from 'https://cdn.jsdelivr.net/gh/petrbroz/simple-treeview@master/dist/treeview.vanilla.js';
-        import { VanillaTreeView } from 'https://unpkg.com/simple-treeview/dist/treeview.vanilla.js';
+        //import { VanillaTreeView } from 'https://unpkg.com/simple-treeview/dist/treeview.vanilla.js';
         let tree = new VanillaTreeView(document.getElementById('tree'), {
             provider: {
                 async getChildren(id) {
                     if (!id) {
                         return [
-                            { id: 'p1', label: 'Parent #1', state: 'collapsed' },
-                            { id: 'p2', label: 'Parent #2', state: 'expanded' }
+                            { id: 'p1', label: 'Parent #1', icon: 'fa-folder', state: 'collapsed' },
+                            { id: 'p2', label: 'Parent #2', icon: 'fa-folder', state: 'expanded' }
                         ];
                     } else {
                         await new Promise((resolve, reject) => setTimeout(resolve, 1000));
                         switch (id) {
                             case 'p1':
                                 return [
-                                    { id: 'c1', label: 'Child #1', state: 'collapsed' },
-                                    { id: 'c2', label: 'Child #2' }
+                                    { id: 'c1', label: 'Child #1', icon: 'fa-file', state: 'collapsed' },
+                                    { id: 'c2', label: 'Child #2', icon: 'fa-file' }
                                 ];
                             case 'p2':
                                 return [
-                                    { id: 'c3', label: 'Child #3' },
-                                    { id: 'c4', label: 'Child #4' }
+                                    { id: 'c3', label: 'Child #3', icon: 'fa-file' },
+                                    { id: 'c4', label: 'Child #4', icon: 'fa-file' }
                                 ];
                             case 'c1':
                                 return [
-                                    { id: 'c5', label: 'Child #5' }
+                                    { id: 'g1', label: 'Grandchild #1', icon: 'fa-clock' }
                                 ];
                             default:
                                 return [];

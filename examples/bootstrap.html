@@ -7,10 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-    <!-- <link rel="stylesheet" href="../dist/treeview.bootstrap.css"> -->
+    <link rel="stylesheet" href="../dist/treeview.bootstrap.css">
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/petrbroz/simple-treeview@master/dist/treeview.bootstrap.css"> -->
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/petrbroz/simple-treeview@master/dist/treeview.bootstrap.min.css"> -->
-    <link rel="stylesheet" href="https://unpkg.com/simple-treeview/dist/treeview.bootstrap.css">
+    <!-- <link rel="stylesheet" href="https://unpkg.com/simple-treeview/dist/treeview.bootstrap.css"> -->
     <title>TreeView: Bootstrap 5</title>
 </head>
 
@@ -20,34 +20,34 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module">
-        //import { BootstrapTreeView } from '../dist/treeview.bootstrap.js';
+        import { BootstrapTreeView } from '../dist/treeview.bootstrap.js';
         //import { BootstrapTreeView } from 'https://cdn.jsdelivr.net/gh/petrbroz/simple-treeview@master/dist/treeview.bootstrap.js';
         //import { BootstrapTreeView } from 'https://cdn.jsdelivr.net/gh/petrbroz/simple-treeview@master/dist/treeview.bootstrap.min.js';
-        import { BootstrapTreeView } from 'https://unpkg.com/simple-treeview/dist/treeview.bootstrap.js';
+        //import { BootstrapTreeView } from 'https://unpkg.com/simple-treeview/dist/treeview.bootstrap.js';
         let tree = new BootstrapTreeView(document.getElementById('tree'), {
             provider: {
                 async getChildren(id) {
                     if (!id) {
                         return [
-                            { id: 'p1', label: 'Parent #1', state: 'collapsed' },
-                            { id: 'p2', label: 'Parent #2', state: 'expanded' }
+                            { id: 'p1', label: 'Parent #1', icon: 'bi-folder', state: 'collapsed' },
+                            { id: 'p2', label: 'Parent #2', icon: 'bi-folder', state: 'expanded' }
                         ];
                     } else {
                         await new Promise((resolve, reject) => setTimeout(resolve, 1000));
                         switch (id) {
                             case 'p1':
                                 return [
-                                    { id: 'c1', label: 'Child #1', state: 'collapsed' },
-                                    { id: 'c2', label: 'Child #2' }
+                                    { id: 'c1', label: 'Child #1', icon: 'bi-file-earmark', state: 'collapsed' },
+                                    { id: 'c2', label: 'Child #2', icon: 'bi-file-earmark' }
                                 ];
                             case 'p2':
                                 return [
-                                    { id: 'c3', label: 'Child #3' },
-                                    { id: 'c4', label: 'Child #4' }
+                                    { id: 'c3', label: 'Child #3', icon: 'bi-file-earmark' },
+                                    { id: 'c4', label: 'Child #4', icon: 'bi-file-earmark' }
                                 ];
                             case 'c1':
                                 return [
-                                    { id: 'g1', label: 'Grandchild #1' }
+                                    { id: 'g1', label: 'Grandchild #1', icon: 'bi-clock' }
                                 ];
                             default:
                                 return [];
