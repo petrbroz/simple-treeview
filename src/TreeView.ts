@@ -43,6 +43,8 @@ export interface IDataProvider {
 export interface ITreeViewOptions {
     /** Data provider. */
     provider: IDataProvider;
+    /** Selection change handler. */
+    onSelectionChanged?: (nodes: INode[]) => void;
 }
 
 /**
@@ -63,6 +65,7 @@ export interface INode extends IItem {
  */
 export abstract class TreeView {
     protected provider: IDataProvider;
+    protected onSelectionChanged?: (nodes: INode[]) => void;
     protected root: HTMLElement;
 
     /**
@@ -72,6 +75,7 @@ export abstract class TreeView {
      */
     constructor(protected container: HTMLElement, options: ITreeViewOptions) {
         this.provider = options.provider;
+        this.onSelectionChanged = options.onSelectionChanged;
         this.root = document.createElement('div');
         this._onRootClick = this._onRootClick.bind(this);
         this.attach();
@@ -146,6 +150,9 @@ export abstract class TreeView {
                 break;
             default:
                 this.onNodeClicked(metadata, el);
+                if (this.onSelectionChanged) {
+                    this.onSelectionChanged([metadata]);
+                }
                 break;
         }
         return false;
