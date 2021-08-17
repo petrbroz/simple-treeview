@@ -1,3 +1,9 @@
+.treeview-node {
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+}
+
 .treeview-node .far {
     margin-right: 0.5em;
 }

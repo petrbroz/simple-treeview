@@ -5,4 +5,7 @@
 .treeview-node {
     cursor: pointer;
     padding: 0.5em;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
 }
