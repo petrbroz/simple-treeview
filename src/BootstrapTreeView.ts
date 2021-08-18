@@ -22,7 +22,15 @@ export class BootstrapTreeView extends TreeView {
         const icon = document.createElement('i');
         icon.classList.add('bi');
         if (node.icon) {
-            icon.classList.add(node.icon);
+            if (typeof node.icon === 'string') {
+                icon.classList.add(node.icon);
+            } else if ('class' in node.icon) {
+                icon.classList.add(node.icon.class);
+            } else if ('src' in node.icon) {
+                const img = document.createElement('img');
+                img.src = node.icon.src;
+                icon.appendChild(img);
+            }
         }
         el.appendChild(icon);
         const span = document.createElement('span');

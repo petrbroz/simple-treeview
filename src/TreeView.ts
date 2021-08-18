@@ -17,7 +17,7 @@ export interface IItem {
     /** Tree node ID. Must be unique within a single tree view. */
     id: string;
     /** Optional CSS class to be used as an icon. */
-    icon?: string;
+    icon?: string | { src: string } | { class: string };
     /** Tree node label. */
     label: string;
     /** Tree node state. Nodes with state `CollapsibleState.None` or `undefined` are considered to have no children. */

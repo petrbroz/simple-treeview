@@ -2,6 +2,14 @@
     padding: 0.5em;
 }
 
+.treeview-node .bi img {
+    width: 16px;
+}
+
+.treeview-node.active .bi img {
+    filter: invert();
+}
+
 .treeview-node {
     cursor: pointer;
     padding: 0.5em;
