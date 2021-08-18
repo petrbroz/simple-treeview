@@ -33,25 +33,25 @@ Awfully basic JavaScript treeview component.
             async getChildren(id) {
                 if (!id) {
                     return [
-                        { id: 'p1', label: 'Parent #1', icon: 'fa-folder', state: 'collapsed' },
-                        { id: 'p2', label: 'Parent #2', icon: 'fa-folder', state: 'expanded' }
+                        { id: 'p1', label: 'Parent #1', icon: { classes: ['far', 'fa-folder'] }, state: 'collapsed' },
+                        { id: 'p2', label: 'Parent #2', icon: { classes: ['far', 'fa-folder'] }, state: 'expanded' }
                     ];
                 } else {
                     await new Promise((resolve, reject) => setTimeout(resolve, 1000)); // Simulate 1s delay
                     switch (id) {
                         case 'p1':
                             return [
-                                { id: 'c1', label: 'Child #1', icon: 'fa-file', state: 'collapsed' },
-                                { id: 'c2', label: 'Child #2', icon: 'fa-file' }
+                                { id: 'c1', label: 'Child #1', icon: { classes: ['far', 'fa-file'] }, state: 'collapsed' },
+                                { id: 'c2', label: 'Child #2', icon: { classes: ['far', 'fa-file'] } }
                             ];
                         case 'p2':
                             return [
-                                { id: 'c3', label: 'Child #3', icon: 'fa-file' },
-                                { id: 'c4', label: 'Child #4', icon: 'fa-file' }
+                                { id: 'c3', label: 'Child #3', icon: { classes: ['far', 'fa-file'] } },
+                                { id: 'c4', label: 'Child #4', icon: { classes: ['far', 'fa-file'] } }
                             ];
                         case 'c1':
                             return [
-                                { id: 'g1', label: 'Grandchild #1', icon: 'fa-clock' }
+                                { id: 'g1', label: 'Grandchild #1', icon: { classes: ['far', 'fa-clock'] } }
                             ];
                         default:
                             return [];
@@ -91,25 +91,25 @@ Awfully basic JavaScript treeview component.
             async getChildren(id) {
                 if (!id) {
                     return [
-                        { id: 'p1', label: 'Parent #1', icon: 'bi-folder', state: 'collapsed' },
-                        { id: 'p2', label: 'Parent #2', icon: 'bi-folder', state: 'expanded' }
+                        { id: 'p1', label: 'Parent #1', icon: { classes: ['bi', 'bi-folder'] }, state: 'collapsed' },
+                        { id: 'p2', label: 'Parent #2', icon: { classes: ['bi', 'bi-folder'] }, state: 'expanded' }
                     ];
                 } else {
                     await new Promise((resolve, reject) => setTimeout(resolve, 1000));
                     switch (id) {
                         case 'p1':
                             return [
-                                { id: 'c1', label: 'Child #1', icon: 'bi-file-earmark', state: 'collapsed' },
-                                { id: 'c2', label: 'Child #2', icon: 'bi-file-earmark' }
+                                { id: 'c1', label: 'Child #1', icon: { classes: ['bi', 'bi-file-earmark'] }, state: 'collapsed' },
+                                { id: 'c2', label: 'Child #2', icon: { classes: ['bi', 'bi-file-earmark'] } }
                             ];
                         case 'p2':
                             return [
-                                { id: 'c3', label: 'Child #3', icon: 'bi-file-earmark' },
-                                { id: 'c4', label: 'Child #4', icon: 'bi-file-earmark' }
+                                { id: 'c3', label: 'Child #3', icon: { classes: ['bi', 'bi-file-earmark'] } },
+                                { id: 'c4', label: 'Child #4', icon: { classes: ['bi', 'bi-file-earmark'] } }
                             ];
                         case 'c1':
                             return [
-                                { id: 'g1', label: 'Grandchild #1', icon: 'bi-clock' }
+                                { id: 'g1', label: 'Grandchild #1', icon: { classes: ['bi', 'bi-clock'] } }
                             ];
                         default:
                             return [];

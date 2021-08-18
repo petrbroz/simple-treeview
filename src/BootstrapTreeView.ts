@@ -20,7 +20,7 @@ export class BootstrapTreeView extends TreeView {
         expando.classList.add('bi', 'expando');
         el.appendChild(expando);
         const icon = document.createElement('i');
-        icon.classList.add('bi');
+        icon.classList.add('icon');
         if (node.icon) {
             if (typeof node.icon === 'string') {
                 icon.classList.add(node.icon);

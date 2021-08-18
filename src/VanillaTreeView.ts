@@ -28,7 +28,7 @@ export class VanillaTreeView extends TreeView {
                 break;
         }
         const icon = document.createElement('div');
-        icon.classList.add('far');
+        icon.classList.add('icon');
         if (node.icon) {
             if (typeof node.icon === 'string') {
                 icon.classList.add(node.icon);

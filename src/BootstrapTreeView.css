@@ -1,12 +1,18 @@
-.treeview-node .bi {
-    padding: 0.5em;
+.treeview-node .expando {
+    margin-left: 0.5em;
 }
 
-.treeview-node .bi img {
+.treeview-node .icon {
+    display: inline-block;
+    margin: 0 0.5em;
     width: 16px;
 }
 
-.treeview-node.active .bi img {
+.treeview-node .icon img {
+    width: 16px;
+}
+
+.treeview-node.active .icon img {
     filter: invert();
 }
 

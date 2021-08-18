@@ -30,25 +30,25 @@
                 async getChildren(id) {
                     if (!id) {
                         return [
-                            { id: 'p1', label: 'Parent #1', icon: 'bi-folder', state: 'collapsed' },
-                            { id: 'p2', label: 'Parent #2', icon: 'bi-folder', state: 'expanded' }
+                            { id: 'p1', label: 'Parent #1', icon: { classes: ['bi', 'bi-folder'] }, state: 'collapsed' },
+                            { id: 'p2', label: 'Parent #2', icon: { classes: ['bi', 'bi-folder'] }, state: 'expanded' }
                         ];
                     } else {
                         await new Promise((resolve, reject) => setTimeout(resolve, 1000));
                         switch (id) {
                             case 'p1':
                                 return [
-                                    { id: 'c1', label: 'Child #1', icon: 'bi-file-earmark', state: 'collapsed' },
-                                    { id: 'c2', label: 'Child #2', icon: 'bi-file-earmark' }
+                                    { id: 'c1', label: 'Child #1', icon: { classes: ['bi', 'bi-file-earmark'] }, state: 'collapsed' },
+                                    { id: 'c2', label: 'Child #2', icon: { classes: ['bi', 'bi-file-earmark'] } }
                                 ];
                             case 'p2':
                                 return [
                                     { id: 'c3', label: 'Child #3', icon: { src: '/examples/thumbs-up.png' } },
-                                    { id: 'c4', label: 'Child #4', icon: 'bi-file-earmark' }
+                                    { id: 'c4', label: 'Child #4', icon: { classes: ['bi', 'bi-file-earmark'] } }
                                 ];
                             case 'c1':
                                 return [
-                                    { id: 'g1', label: 'Grandchild #1', icon: 'bi-clock' }
+                                    { id: 'g1', label: 'Grandchild #1', icon: { classes: ['bi', 'bi-clock'] } }
                                 ];
                             default:
                                 return [];

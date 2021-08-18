@@ -4,11 +4,13 @@
     text-overflow: ellipsis;
 }
 
-.treeview-node .far {
+.treeview-node .icon {
+    display: inline-block;
     margin-right: 0.5em;
+    width: 12px;
 }
 
-.treeview-node .far img {
+.treeview-node .icon img {
     width: 12px;
 }
 
