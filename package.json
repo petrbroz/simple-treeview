@@ -1,6 +1,6 @@
 {
     "name": "simple-treeview",
-    "version": "0.0.8",
+    "version": "0.0.9",
     "description": "Awfully basic JavaScript treeview component.",
     "scripts": {
         "build": "rollup -c rollup.config.js",
