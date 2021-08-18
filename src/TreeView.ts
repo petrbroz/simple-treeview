@@ -16,8 +16,16 @@ export enum CollapsibleState {
 export interface IItem {
     /** Tree node ID. Must be unique within a single tree view. */
     id: string;
-    /** Optional CSS class to be used as an icon. */
-    icon?: string | { src: string } | { class: string };
+    /**
+     * Optional CSS class to be used as an icon. The value can have multiple forms:
+     * - an object with `src` property
+     *   - in this case the tree will include an image with the given source URL
+     * - an object with `classes` property
+     *   - in this case the tree will add an `<i>` element with all these CSS classes
+     * - a string
+     *   - in this case the tree will add an `<i>` element with this string as a CSS class
+     */
+    icon?: string | { src: string } | { classes: string[] };
     /** Tree node label. */
     label: string;
     /** Tree node state. Nodes with state `CollapsibleState.None` or `undefined` are considered to have no children. */

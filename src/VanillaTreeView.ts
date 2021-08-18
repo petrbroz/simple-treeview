@@ -32,8 +32,8 @@ export class VanillaTreeView extends TreeView {
         if (node.icon) {
             if (typeof node.icon === 'string') {
                 icon.classList.add(node.icon);
-            } else if ('class' in node.icon) {
-                icon.classList.add(node.icon.class);
+            } else if ('classes' in node.icon) {
+                icon.classList.add(...node.icon.classes);
             } else if ('src' in node.icon) {
                 const img = document.createElement('img');
                 img.src = node.icon.src;
@@ -53,7 +53,6 @@ export class VanillaTreeView extends TreeView {
      * @param el Tree node HTML element.
      */
     protected onNodeClicked(node: INode, el: HTMLElement): void {
-        alert(`Clicked on ${node.label} (id: ${node.id})`);
     }
 
     /**

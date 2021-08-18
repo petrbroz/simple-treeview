@@ -24,8 +24,8 @@ export class BootstrapTreeView extends TreeView {
         if (node.icon) {
             if (typeof node.icon === 'string') {
                 icon.classList.add(node.icon);
-            } else if ('class' in node.icon) {
-                icon.classList.add(node.icon.class);
+            } else if ('classes' in node.icon) {
+                icon.classList.add(...node.icon.classes);
             } else if ('src' in node.icon) {
                 const img = document.createElement('img');
                 img.src = node.icon.src;
