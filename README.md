@@ -120,3 +120,23 @@ Awfully basic JavaScript treeview component.
     });
 </script>
 ```
+
+### Events
+
+```javascript
+tree.onNodeClicked = (node, elem) => {
+	console.log('onNodeClicked', node, elem);
+}
+
+tree.onNodeLoading = (node, elem) => {
+	console.log('onNodeLoading', node, elem);
+}
+
+tree.onNodeCollapsed = (node, elem) => {
+	console.log('onNodeCollapsed', node, elem);
+}
+
+tree.onNodeExpanded = (node, elem) => {
+	console.log('onNodeExpanded', node, elem);
+}
+```
